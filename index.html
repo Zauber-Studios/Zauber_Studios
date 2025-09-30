@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Webseite</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      .start-screen .arrow {
+        display: none;
+      }
+    </style>
+</head>
+<body>
+    <div class="start-screen arrows-in">
+        <div class="arrow left-arrow">←</div>
+        <h1>Willkommen auf der Zauber_Studios Webseite</h1>
+        <div class="arrow right-arrow">→</div>
+        <div class="start-buttons-container">
+            <button class="start-button" data-target="partner-content">Partner</button>
+            <button class="start-button" data-target="ueber-mich-content">Über Zauberer</button>
+        </div>
+    </div>
+
+    <div class="main-content" style="display: none;">
+        <header class="top-bar">
+            <div class="menu-icon">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="current-category"></div>
+        </header>
+
+        <nav class="sidebar">
+            <button class="sidebar-button partner-button" data-target="partner-content">Partner</button>
+            <button class="sidebar-button ueber-mich-button" data-target="ueber-mich-content">Über Mich</button>
+        </nav>
+
+        <main class="content">
+            <section id="partner-content" class="category-content">
+                <h2>Partner</h2>
+                <div class="link-container">
+                    <h3>Bündnis Borken</h3>
+                    <p>BB ist ein Zusammenschluss/eine kleine Nation, die gerne auf Minecraft Servern spielt.</p>
+                    <p><a href="https://discord.gg/cGS5szG4F3" target="_blank">Discord der von dem RP-Server BB</a></p>
+                </div>
+                <div class="image-container">
+                </div>
+            </section>
+
+            <section id="ueber-mich-content" class="category-content">
+                <h2>Über Mich</h2>
+                <div class="link-container">
+                    <h3>Der_Zauberer_HD</h3>
+                    <p>Ein ganz normaler Let's Play Kanal für verschiedene Spiele.</p>
+                    <p><a href="https://discord.gg/J4jWdsw2kB" target="_blank">Discord von Der_Zauberer_HD</a></p>
+                    <p><a href="https://www.youtube.com/@Zauber_Studios" target="_blank">YouTube-Kanal Der_Zauberer_HD</a></p>
+                </div>
+                <div class="link-container">
+                    <h3>Zauber_Studios</h3>
+                    <p>Ein Film Kanal, wo Minecraft Filme veröffentlicht werden.</p>
+                    <p><a href="https://www.youtube.com/@Der_Zauberer_HD" target="_blank">YouTube-Kanal Zauber_Studios</a></p>
+                </div>
+                <div class="image-container">
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const startScreen = document.querySelector('.start-screen');
+        const mainContent = document.querySelector('.main-content');
+        const startButtons = document.querySelectorAll('.start-button');
+        const menuIcon = document.querySelector('.menu-icon');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarButtons = document.querySelectorAll('.sidebar-button');
+        const currentCategoryDisplay = document.querySelector('.current-category');
+        const contentSections = document.querySelectorAll('.category-content');
+        const leftArrow = document.querySelector('.left-arrow');
+        const rightArrow = document.querySelector('.right-arrow');
+
+        startButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                startScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                document.getElementById(targetId).style.display = 'block';
+                currentCategoryDisplay.textContent = this.textContent;
+            });
+        });
+
+        menuIcon.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            menuIcon.classList.toggle('rotate');
+        });
+
+        sidebarButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.getElementById(targetId).style.display = 'block';
+                currentCategoryDisplay.textContent = this.textContent;
+                sidebar.classList.remove('active');
+                menuIcon.classList.remove('rotate');
+            });
+        });
+
+        leftArrow.addEventListener('click', () => {
+            window.location.href = 'https://youtu.be/xvFZjo5PgG0?si=PaF0UhDC4D4KCfZ5';
+        });
+
+        rightArrow.addEventListener('click', () => {
+            window.location.href = 'https://youtu.be/xvFZjo5PgG0?si=PaF0UhDC4D4KCfZ5';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.start-screen').classList.add('arrows-in');
+            if (mainContent.style.display === 'block') {
+                const initialCategory = window.location.hash ? window.location.hash.substring(1).replace('-content', '') : 'Partner';
+                document.getElementById(initialCategory + '-content').style.display = 'block';
+                currentCategoryDisplay.textContent = initialCategory;
+            }
+        });
+    </script>
+</body>
+</html>
