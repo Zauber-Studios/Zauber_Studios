@@ -1,519 +1,458 @@
 body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  font-family: "SUSE Mono", sans-serif;
-  background: #001830;
-  overflow-x: hidden;
-  position: relative;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Schwarzer Hintergrund */
+    color: #f4f4f4;
 }
 
-.grid-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 50px 50px;
-  background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  z-index: -2;
-}
-
-.light-effect {
-  position: fixed;
-  pointer-events: none;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0) 60%
-  );
-  transform: translate(-50%, -50%);
-  z-index: 99999;
-  opacity: 1;
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 24, 48, 0.3),
-    rgba(0, 24, 48, 0.7)
-  );
-  z-index: -1;
-}
-
-.star:nth-child(3) {
-  left: 30%;
-  top: 25%;
-  animation: twinkle 3.5s infinite 1.5s;
-}
-.star:nth-child(4) {
-  left: 40%;
-  top: 60%;
-  animation: twinkle 4s infinite 2s;
-}
-.star:nth-child(5) {
-  left: 50%;
-  top: 30%;
-  animation: twinkle 3s infinite 0s;
-}
-.star:nth-child(6) {
-  left: 60%;
-  top: 70%;
-  animation: twinkle 3.5s infinite 1s;
-}
-.star:nth-child(7) {
-  left: 70%;
-  top: 45%;
-  animation: twinkle 4s infinite 2s;
-}
-.star:nth-child(8) {
-  left: 80%;
-  top: 15%;
-  animation: twinkle 3s infinite 0.5s;
-}
-.star:nth-child(9) {
-  left: 90%;
-  top: 50%;
-  animation: twinkle 3.5s infinite 1.5s;
-}
-.star:nth-child(10) {
-  left: 15%;
-  top: 80%;
-  animation: twinkle 4s infinite 1s;
-}
-.star:nth-child(11) {
-  left: 25%;
-  top: 65%;
-  animation: twinkle 3s infinite 2s;
-}
-.star:nth-child(12) {
-  left: 55%;
-  top: 85%;
-  animation: twinkle 3.5s infinite 0s;
-}
-.star:nth-child(13) {
-  left: 75%;
-  top: 75%;
-  animation: twinkle 4s infinite 1.5s;
-}
-.star:nth-child(14) {
-  left: 85%;
-  top: 35%;
-  animation: twinkle 3s infinite 1s;
-}
-.star:nth-child(15) {
-  left: 45%;
-  top: 95%;
-  animation: twinkle 3.5s infinite 0.5s;
-}
-.container {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  left: 16px;
-  font-size: 28px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  z-index: 1;
-}
-
-.scroll-nav {
-  position: fixed;
-  top: -100px;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: rgba(0, 24, 48, 0.95);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  transition: top 0.3s;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  white-space: nowrap;
-  overflow: visible;
-}
-
-.scroll-nav.visible {
-  top: 0;
-}
-
-.scroll-nav .logo img {
-  height: 50px;
-  border-radius: 5px;
-}
-
-.scroll-nav .title {
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.scroll-nav .nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.scroll-nav .nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.scroll-nav .nav-links a:hover {
-  color: #66a3ff;
-}
-.menu-link {
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 16px;
-  transition: color 0.3s;
-}
-.menu-link:hover {
-  color: #66a3ff;
-}
-.MODERNA-LOGOmini {
-  height: 100px;
-  border-radius: 10px;
-}
-.überschrift {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 300px;
-  color: #ffffff;
-  font-size: 64px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  padding-bottom: 20px;
-}
-
-.überschrift::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: -20%;
-  right: -20%;
-  height: 2px;
-  background: transparent;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #fff;
-  background-image: linear-gradient(
-    to right,
-    transparent,
-    transparent 20%,
-    #fff 50%,
-    transparent 80%,
-    transparent
-  );
-  transform: perspective(100px) rotateX(30deg);
-  opacity: 0.7;
-}
-.video {
-  position: absolute;
-  width: 560px;
-  height: 315px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 400px;
-  border: 5px solid #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.content-wrapper {
-  position: relative;
-  top: 400px;
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  width: 90%;
-  max-width: 1400px;
-  margin: 0 auto;
-  z-index: 1;
-}
-
-.description-box {
-  background: linear-gradient(135deg,
-    #ff3b3b 0%,
-    #ff7a3b 20%,
-    #ffd13b 40%,
-    #3bffb5 60%,
-    #3b6bff 80%,
-    #8a2be2 100%);
-  background-size: 600% 600%;
-  animation: gradientShift 15s ease infinite; /* langsamer */
-  padding: 25px;
-  border-radius: 15px;
-  width: 65%;
-  flex-shrink: 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: #000000;
-}
-
-.description-box h1 {
-  font-size: 1.8em;
-  margin-bottom: 15px;
-  color: #000000;
-  text-align: center;
-  z-index: 1;
-}
-
-.description-box h2 {
-  font-size: 1.3em;
-  margin-top: 20px;
-  margin-bottom: 12px;
-  color: #000000;
-  z-index: 1;
-}
-
-.description-box p {
-  margin-bottom: 12px;
-  line-height: 1.5;
-  font-size: 0.95em;
-  z-index: 1;
-}
-
-.description-box .slogan {
-  text-align: center;
-  z-index: 1;
-}
-
-.impressum-wrapper {
-  top: 200px;
-}
-
-.impressum-box {
-  width: 50%;
-  max-width: 800px;
-}
-
-.impressum-box h2 {
-  color: #001830;
-  margin-top: 30px;
-  font-size: 1.2em;
-}
-
-.impressum-box p {
-  margin-left: 20px;
-}
-
-.discord-section {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.pillar {
-  margin: 25px 0;
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  z-index: 1;
-}
-
-.conclusion {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 1.1em;
-  z-index: 1;
-}
-
-.button-box {
-  background-color: rgba(255, 255, 255, 0.92);
-  padding: 30px;
-  border-radius: 15px;
-  width: 25%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.pdf-button {
-  display: block;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  color: #000000;
-  padding: 20px 25px;
-  border-radius: 12px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 28px;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.pdf-button:hover {
-  background-color: #f0f0f0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  transform: scale(1.05);
-}
-
-.impressum-button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 500px;
-  background-color: #ffffff;
-  color: #000000;
-  padding: 15px 30px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.impressum-button:hover {
-  background-color: #f0f0f0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  transform: translateX(-50%) scale(1.05);
-}
-
-/* Tablet-Ansicht */
-@media screen and (max-width: 1024px) {
-  .container {
-    padding: 10px;
-  }
-  .MODERNA-LOGOmini {
-    height: 80px;
-  }
-  .überschrift {
-    font-size: 48px;
-    top: 250px;
-  }
-  .description-box {
-    width: 85%;
-    padding: 20px;
-    top: 350px;
-  }
-  .description-box h1 {
-    font-size: 1.6em;
-  }
-  .description-box h2 {
-    font-size: 1.2em;
-  }
-  .pdf-button {
-    top: 950px;
-    font-size: 24px;
-    padding: 18px 36px;
-  }
-}
-.container {
-  padding: 10px;
-}
-.MODERNA-LOGOmini {
-  height: 80px;
-}
-.überschrift {
-  font-size: 48px;
-  top: 250px;
-}
-.video {
-  width: 80vw;
-  height: 45vw;
-  max-width: 560px;
-  max-height: 315px;
-  top: 350px;
-}
-.pdf-button {
-  top: 350px;
-  font-size: 20px;
-  padding: 12px 25px;
-}
-.impressum-button {
-  top: 450px;
-  font-size: 20px;
-  padding: 12px 25px;
-}
-
-/* Handy-Ansicht */
-@media screen and (max-width: 600px) {
-  .container {
+/* Startbildschirm */
+.start-screen {
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-  }
-  .MODERNA-LOGOmini {
-    height: 60px;
-  }
-  .menu-link {
-    margin: 0 8px;
-    font-size: 20px;
-  }
-  .scroll-nav {
+    height: 100vh;
+    text-align: center;
+    overflow: hidden; /* Verhindert Scrollbalken durch die animierten Pfeile */
+}
+
+.start-screen .arrow {
+  display: none;
+}
+
+.start-screen h1 {
+    color: #a78bfa; /* Lila Titel */
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+.arrow {
+    color: #a78bfa;
+    font-size: 3.0em;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.5s ease; /* Langsamere Transformation für das Gleiten */
+    position: absolute; /* Für die Positionierung außerhalb des Bildschirms */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.left-arrow {
+    left: -50px; /* Außerhalb des linken Randes */
+}
+
+.right-arrow {
+    right: -50px; /* Außerhalb des rechten Randes */
+}
+
+.start-screen.arrows-in .left-arrow {
+    left: 20px; /* Gleiten nach links */
+}
+
+.start-screen.arrows-in .right-arrow {
+    right: 20px; /* Gleiten nach rechts */
+}
+
+.arrow:hover {
+    color: #c084fc;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.start-buttons-container {
+    display: flex; /* Buttons horizontal anordnen */
+    gap: 20px; /* Abstand zwischen den Buttons */
+}
+
+.start-button {
+    color: #f4f4f4;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+}
+
+/* Spezifische Farben für die Startseiten-Buttons */
+.start-button[data-target="partner-content"] {
+    background-color: #ff4500; /* Rot */
+}
+
+.start-button[data-target="partner-content"]:hover {
+    background-color: orange; /* Gelb */
+}
+
+.start-button[data-target="chat-gpt-content"] {
+    background-color: #fff; /* Weiß */
+    color: #000;
+}
+
+.start-button[data-target="chat-gpt-content"]:hover {
+    background-color: black; /* Schwarz */
+    color: #fff;
+}
+
+.start-button[data-target="ueber-mich-content"] {
+    background-color: #a78bfa; /* Lila */
+}
+
+.start-button[data-target="ueber-mich-content"]:hover {
+    background-color: #800080; /* Dunkellila */
+}
+
+/* Hauptinhalt */
+.main-content {
     display: none;
-  }
 }
-.überschrift {
-  font-size: 36px;
-  text-align: center;
-  width: 90%;
-  top: 200px;
+
+.top-bar {
+    background-color: #333;
+    color: #f4f4f4;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #555;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
-.content-wrapper {
-  flex-direction: column;
-  align-items: center;
-  top: 300px;
-  margin-bottom: 40px;
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
 }
-.description-box {
-  width: 85%;
-  order: 1;
+
+.menu-icon.rotate {
+    transform: rotate(90deg);
 }
-.button-box {
-  width: 85%;
-  order: 2;
-  margin-top: 20px;
+
+.menu-icon div {
+    background-color: #f4f4f4;
+    height: 3px;
+    width: 100%;
 }
-.video {
-  width: 90vw;
-  height: 50.625vw;
-  top: 300px;
-  border-width: 3px;
+
+.sidebar {
+    position: fixed;
+    top: 70px; /* Platz für den Top-Bar */
+    left: -35vw; /* Anfangs außerhalb des sichtbaren Bereichs */
+    width: 30vw; /* Breite des transparenten Kastens */
+    background-color: rgba(0, 0, 0, 0.5); /* Schwarzer, leicht transparenter Hintergrund */
+    padding: 20px;
+    border-radius: 10px;
+    transition: left 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Abstand zwischen den Buttons */
+    box-sizing: border-box; /* Padding und Border zur Breite hinzufügen */
 }
-.pdf-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  width: 100%;
+
+.sidebar.active {
+    left: 10px; /* Rein gleiten ins Bild */
 }
-.impressum-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  width: 100%;
+
+.sidebar-button {
+    border: none;
+    padding: 20px; /* Größerer Padding für größere Buttons */
+    border-radius: 8px;
+    font-size: 1.3em; /* Größere Schrift */
+    cursor: pointer;
+    text-align: center; /* Zentrierter Text */
+    opacity: 0; /* Anfangs ausgeblendet */
+    transform: translateX(-20px); /* Anfangs leicht nach links verschoben */
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s, background-color 0.3s ease, color 0.3s ease; /* Übergang für Hover */
+    width: 100%; /* Buttons füllen die Breite des Kastens */
+    box-sizing: border-box; /* Padding und Border zur Breite hinzufügen */
 }
-.discord-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  width: 100%;
+
+.sidebar.active .sidebar-button {
+    opacity: 1;
+    transform: translateX(0);
 }
-@keyframes gradientShift {
-  0%   { background-position: 100% 0%; }
-  50%  { background-position: 0% 100%; }
-  100% { background-position: 100% 0%; }
+
+/* Spezifische Farben für die Sidebar-Buttons */
+.sidebar-button.partner-button {
+    background-color: #ff4500; /* Rot */
+    color: #fff;
+}
+
+.sidebar-button.partner-button:hover {
+    background-color: orange; /* Gelb */
+}
+
+.sidebar-button.chat-gpt-button {
+    background-color: #fff; /* Weiß */
+    color: #000;
+}
+
+.sidebar-button.chat-gpt-button:hover {
+    background-color: black; /* Schwarz */
+    color: #fff;
+}
+
+.sidebar-button.ueber-mich-button {
+    background-color: #a78bfa; /* Lila */
+    color: #fff;
+}
+
+.sidebar-button.ueber-mich-button:hover {
+    background-color: #800080; /* Dunkellila */
+}
+
+.sidebar-button:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+.current-category {
+    font-size: 1.2em;
+    color: #a78bfa;
+}
+
+.content {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.category-content {
+    display: none;
+    background-color: #333;
+    color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid #555;
+}
+
+.category-content h2 {
+    color: #a78bfa;
+    border-bottom: 2px solid #8b5cf6;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.link-container {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: #444;
+}
+
+.link-container h3 {
+    color: #6ee7b7;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.link-container a {
+    color: #e0f2fe;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #818cf8;
+    border-radius: 8px;
+    margin-right: 10px;
+    background-color: #6366f1;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    display: inline-block;
+}
+
+.link-container a:hover {
+    background-color: #a78bfa;
+    color: #f0f8ff;
+    border-color: #c084fc;
+    text-decoration: none;
+}
+
+.image-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    align-items: center;
+    flex-wrap: wrap; /* Für den Fall, dass Bilder zu breit werden auf kleinen Bildschirmen */
+}
+
+.image-placeholder {
+    background-color: #555;
+    color: #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    min-width: 100px; /* Etwas Mindestbreite für bessere Darstellung */
+    flex-grow: 1; /* Erlaubt den Platzhaltern, sich gleichmäßig zu verteilen */
+}
+
+/* Media Query für Bildschirme bis maximal 768px Breite (Handys) */
+@media (max-width: 768px) {
+    .start-screen h1 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+    .arrow {
+        font-size: 2.5em;
+        left: 10px;
+        right: 10px;
+    }
+
+    .start-buttons-container {
+        flex-direction: row; /* Buttons nebeneinander auf kleinen Bildschirmen */
+        gap: 10px;
+        width: 100%; /* Buttons füllen die Breite */
+        justify-content: space-around; /* Gleichmäßige Verteilung */
+    }
+
+    .start-button {
+        /* Farben und grundlegende Formatierung beibehalten */
+        color: #f4f4f4;
+        border: none;
+        padding: 10px 15px; /* Kleineres Padding für kleinere Bildschirme */
+        border-radius: 8px;
+        font-size: 1em; /* Kleinere Schriftgröße */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Kleinere Schatten */
+        flex-grow: 1; /* Erlaubt den Buttons, sich gleichmäßig zu verteilen */
+        text-align: center; /* Text zentrieren */
+    }
+
+    /* Spezifische Farben für die Startseiten-Buttons auf kleinen Bildschirmen */
+    .start-button[data-target="partner-content"] {
+        background-color: #ff4500; /* Rot */
+    }
+
+    .start-button[data-target="partner-content"]:hover {
+        background-color: orange; /* Gelb */
+    }
+
+    .start-button[data-target="chat-gpt-content"] {
+        background-color: #fff; /* Weiß */
+        color: #000;
+    }
+
+    .start-button[data-target="chat-gpt-content"]:hover {
+        background-color: black; /* Schwarz */
+        color: #fff;
+    }
+
+    .start-button[data-target="ueber-mich-content"] {
+        background-color: #a78bfa; /* Lila */
+    }
+
+    .start-button[data-target="ueber-mich-content"]:hover {
+        background-color: #800080; /* Dunkellila */
+    }
+
+    .top-bar {
+        padding: 10px;
+    }
+
+    .menu-icon {
+        width: 25px;
+        height: 16px;
+        margin-right: 15px;
+    }
+
+    .sidebar {
+        top: 56px; /* Platz für den kleineren Top-Bar */
+        left: 0; /* Sidebar von Anfang an sichtbar (kann später mit JS getoggelt werden) */
+        width: 80vw; /* Nimmt einen größeren Teil des Handy-Bildschirms ein */
+        padding: 15px;
+        border-radius: 0;
+        transition: transform 0.3s ease; /* Verwenden Sie transform für bessere Performance bei Animationen */
+        transform: translateX(-100%); /* Anfangs komplett nach links verschoben */
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+        z-index: 101; /* Über dem Hauptinhalt */
+    }
+
+    .sidebar.active {
+        transform: translateX(0); /* Rein gleiten */
+    }
+
+    .sidebar-button {
+        padding: 15px;
+        font-size: 1.1em;
+        opacity: 1; /* Immer sichtbar auf Handys (kein Einblenden) */
+        transform: translateX(0); /* Keine seitliche Verschiebung */
+    }
+
+    /* Spezifische Farben für die Sidebar-Buttons auf kleinen Bildschirmen */
+    .sidebar-button.partner-button {
+        background-color: #ff4500; /* Rot */
+        color: #fff;
+    }
+
+    .sidebar-button.partner-button:hover {
+        background-color: orange; /* Gelb */
+    }
+
+    .sidebar-button.chat-gpt-button {
+        background-color: #fff; /* Weiß */
+        color: #000;
+    }
+
+    .sidebar-button.chat-gpt-button:hover {
+        background-color: black; /* Schwarz */
+        color: #fff;
+    }
+
+    .sidebar-button.ueber-mich-button {
+        background-color: #a78bfa; /* Lila */
+        color: #fff;
+    }
+
+    .sidebar-button.ueber-mich-button:hover {
+        background-color: #800080; /* Dunkellila */
+    }
+
+    .current-category {
+        font-size: 1em;
+    }
+
+    .content {
+        margin-top: 56px;
+        padding: 15px;
+        margin-left: 0; /* Kein Margin, da Sidebar über den Inhalt gleitet */
+    }
+
+    .category-content h2 {
+        font-size: 1.3em;
+        padding-bottom: 3px;
+        margin-bottom: 10px;
+    }
+
+    .link-container {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .link-container a {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        margin-right: 5px; /* Weniger Abstand */
+        margin-bottom: 5px; /* Mehrzeilige Darstellung unterstützen */
+        display: inline-block; /* Wichtig für Margin/Padding */
+    }
+
+    .image-container {
+        gap: 10px;
+        margin-top: 10px;
+        flex-direction: column; /* Bilder/Platzhalter untereinander auf kleinen Bildschirmen */
+        align-items: stretch; /* Über die volle Breite strecken */
+    }
 }
