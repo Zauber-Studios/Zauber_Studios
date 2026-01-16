@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meine Webseite</title>
+    <title>Zauber_Studios</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       .start-screen .arrow {
@@ -25,13 +25,11 @@
       <h1>Willkommen auf der Zauber_Studios Webseite</h1>
       <div class="arrow right-arrow">→</div>
       <div class="start-buttons-container">
+        <button class="start-button" data-target="lunaria-content">Lunaria</button>
         <button class="start-button" data-target="aktuelles">Aktuelles</button>
-        <button class="start-button" data-target="ueber-mich-content">
-          Über Zauberer
-        </button>
-        <button class="start-button" data-target="partner-content">
-          Partner
-        </button>
+        <button class="start-button" data-target="ueber-mich-content">Über Zauberer</button>
+        <button class="start-button" data-target="partner-content">Partner</button>
+        <button class="start-button" data-target="archiv-content">Archiv</button>
       </div>
     </div>
 
@@ -46,35 +44,40 @@
       </header>
 
       <nav class="sidebar">
-        <button class="sidebar-button aktuelles-button" data-target="aktuelles">
-          Aktuelles
-        </button>
-        <button
-          class="sidebar-button ueber-mich-button"
-          data-target="ueber-mich-content"
-        >
-          Über Zauberer
-        </button>
-        <button
-          class="sidebar-button partner-button"
-          data-target="partner-content"
-        >
-          Partner
-        </button>
+        <div class="categories-box">
+          <button
+            class="sidebar-button lunaria-button"
+            data-target="lunaria-content"
+          >
+            Lunaria
+          </button>
+          <button class="sidebar-button aktuelles-button" data-target="aktuelles">
+            Aktuelles
+          </button>
+          <button
+            class="sidebar-button ueber-mich-button"
+            data-target="ueber-mich-content"
+          >
+            Über Zauberer
+          </button>
+          <button
+            class="sidebar-button partner-button"
+            data-target="partner-content"
+          >
+            Partner
+          </button>
+          <button
+            class="sidebar-button archiv-button"
+            data-target="archiv-content"
+          >
+            Archiv
+          </button>
+        </div>
       </nav>
 
       <main class="content">
         <section id="aktuelles" class="category-content aktuelles">
           <h2>Hier könnte ihre Werbung stehen</h2>
-          <div class="link-container">
-            <h3>Kumpel Server Worlds</h3>
-            </p>
-            <p>
-              <a href="https://drive.google.com/drive/folders/11YOmT-Yr9ESIZl7TtxRF_8xbuti8kKdY?usp=sharing" target="_blank"
-                >Hier kannst du World Ordner Öffnen</a
-              >
-            </p>
-          </div>
         </section>
 
         <section id="partner-content" class="category-content partner">
@@ -120,6 +123,33 @@
             </p>
           </div>
         </section>
+        <section id="archiv-content" class="category-content archiv">
+          <h2>Archiv</h2>
+          <div class="link-container">
+            <h3>Minecraft Kumpel</h3>
+            <p>Hier kannst du die beiden Minecraft-Welten herunterladen:</p>
+            <p>
+              <a href="Welten/Kumpel Welt 1.zip" download="Kumpel Welt 1.zip">Welt V1 herunterladen</a>
+              <a href="Welten/Kumpel Welt 2.zip" download="Kumpel Welt 2.zip">Welt V2 herunterladen</a>
+            </p>
+          </div>
+        </section>
+
+        <section id="lunaria-content" class="category-content lunaria">
+          <h2>Lunaria</h2>
+          <div class="link-container">
+            <p>Informationen zu Lunaria.</p>
+          </div>
+
+          <div class="link-container">
+            <h3>Server-Start angekündigt!</h3>
+            <p>Markiert euch den Kalender: Am 31. Jänner 2026 um 19:00 Uhr geht es offiziell los!</p>
+            <p>⏰ Uhrzeit-Anpassungen: Falls der Termin für euch gar nicht passt, meldet euch bitte direkt beim Team im Discord</p>
+            <p>🛠️ Mod-Paket: Es wurde sich auf Neues Terrain und Strukturen ohne Client mods geeinigt.</p>
+            <p>Wir freuen uns auf euch und hoffen, dass euch der Server gefällt!</p>
+            <p><a href="https://discord.gg/G32p2JRhyP" target="_blank">Discord beitreten</a></p>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -133,7 +163,7 @@
       const currentCategoryDisplay =
         document.querySelector(".current-category");
       const contentSections = document.querySelectorAll(
-        ".category-content.aktuelles, .category-content.partner, .category-content.ueber-mich"
+        ".category-content"
       );
       const leftArrow = document.querySelector(".left-arrow");
       const rightArrow = document.querySelector(".right-arrow");

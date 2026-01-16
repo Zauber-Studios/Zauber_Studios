@@ -87,11 +87,12 @@ body {
   color: #fff;
 }
 .start-button[data-target="partner-content"] {
-  background-color: #ff4500; /* Rot */
+  background-color: #475569; /* neutral slate color for Partner */
 }
 
 .start-button[data-target="partner-content"]:hover {
-  background-color: orange; /* Gelb */
+  background-color: #6b7280; /* lighter slate on hover */
+  color: #fff;
 }
 
 .start-button[data-target="chat-gpt-content"] {
@@ -200,12 +201,12 @@ body {
 }
 /* Spezifische Farben für die Sidebar-Buttons */
 .sidebar-button.partner-button {
-  background-color: #ff4500; /* Rot */
+  background-color: #475569; /* neutral slate color for Partner */
   color: #fff;
 }
 
 .sidebar-button.partner-button:hover {
-  background-color: orange; /* Gelb */
+  background-color: #6b7280; /* lighter slate on hover */
 }
 
 .sidebar-button.chat-gpt-button {
@@ -216,6 +217,18 @@ body {
 .sidebar-button.chat-gpt-button:hover {
   background-color: black; /* Schwarz */
   color: #fff;
+}
+
+/* Neue Kategorien: Archiv und Lunaria (weiß, hover grau) */
+.sidebar-button.archiv-button,
+.sidebar-button.lunaria-button {
+  background-color: #ffffff;
+  color: #000000;
+}
+.sidebar-button.archiv-button:hover,
+.sidebar-button.lunaria-button:hover {
+  background-color: #bfbfbf; /* grau beim Hover */
+  color: #000000;
 }
 
 .sidebar-button.ueber-mich-button {
@@ -230,6 +243,70 @@ body {
 .sidebar-button:hover {
   opacity: 0.9;
   transform: scale(1.03);
+}
+
+/* Standard: Kategorie-Buttons klar/weiß mit schwarzem Text und dezenter Hover-Animation */
+.sidebar-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  transition: background-color 0.18s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.sidebar-button:hover {
+  transform: scale(1.04) !important;
+  background-color: #e6e6e6 !important; /* leicht grauer Hover */
+  color: #000000 !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Start screen buttons: weißer Hintergrund, schwarzer Text, Hover-Animation */
+.start-button {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  transition: background-color 0.18s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+.start-button:hover {
+  transform: scale(1.04);
+  background-color: #e6e6e6;
+  color: #000000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Force start-screen buttons to white/black regardless of data-target overrides */
+.start-screen .start-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.start-screen .start-button:hover {
+  background-color: #e6e6e6 !important;
+  transform: scale(1.04) !important;
+}
+
+/* Animierter Farbverlauf für die Kategorie-Anzeige oben links */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.current-category {
+  display: inline-block;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa, #f472b6, #fb7185);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientShift 4s linear infinite;
+}
+
+/* Positioniere die Kategorie links im Top-Bar etwas sichtbarer */
+.top-bar .current-category {
+  margin-left: 8px;
 }
 
 .current-category {
@@ -255,8 +332,8 @@ body {
 
 .category-content.aktuelles {
   display: none;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #444444; /* grau für die Box */
+  color: #ffffff; /* Text in der Box weiß */
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -273,8 +350,8 @@ body {
 }
 
 .category-content.aktuelles h2 {
-  color: #4c00ff;
-  border-bottom: 2px solid #00aeff;
+  color: #ffffff; /* Überschrift weiß */
+  border-bottom: 2px solid #00aeff; /* hellblauer Strich */
   padding-bottom: 5px;
   margin-bottom: 15px;
 }
@@ -323,8 +400,22 @@ body {
 }
 
 .category-content.partner h2 {
-  color: #ff4500;
-  border-bottom: 2px solid #f97316;
+  color: #ffffff; /* Partner-Überschrift weiß */
+  border-bottom: 2px solid #00aeff; /* wie bei Aktuelles: hellblau */
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.archiv h2 {
+  color: #ffffff;
+  border-bottom: 2px solid #00aeff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.lunaria h2 {
+  color: #ffffff;
+  border-bottom: 2px solid #00aeff;
   padding-bottom: 5px;
   margin-bottom: 15px;
 }
@@ -547,5 +638,46 @@ body {
     margin-top: 10px;
     flex-direction: column; /* Bilder/Platzhalter untereinander auf kleinen Bildschirmen */
     align-items: stretch; /* Über die volle Breite strecken */
+  }
+}
+
+/* Desktop: Sidebar immer sichtbar, Menü-Icon verstecken, Kategorien in Box */
+@media (min-width: 769px) {
+  .menu-icon {
+    display: none;
+  }
+
+  .sidebar {
+    left: 10px; /* sichtbar am linken Rand */
+    transform: none !important;
+    width: 320px; /* breitere feste Breite für Desktop */
+    top: 80px;
+    height: calc(100vh - 100px);
+    border-radius: 10px;
+    background-color: rgba(10, 10, 10, 0.85);
+    padding: 18px;
+  }
+
+  .sidebar-button {
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 12px 16px; /* weniger vertikales Padding, verhindert hohe Buttons */
+    white-space: nowrap; /* Versuch, Umbruch zu vermeiden */
+  }
+
+  .categories-box {
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .content {
+    margin-top: 80px; /* Platz für Top-Bar */
+    margin-left: 360px; /* Platz für die breitere Sidebar + Abstand */
+    padding: 20px;
   }
 }
