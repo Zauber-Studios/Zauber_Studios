@@ -494,10 +494,10 @@ body {
   }
 
   .start-buttons-container {
-    flex-direction: row; /* Buttons nebeneinander auf kleinen Bildschirmen */
-    gap: 10px;
-    width: 100%; /* Buttons füllen die Breite */
-    justify-content: space-around; /* Gleichmäßige Verteilung */
+    flex-direction: column; /* Buttons untereinander auf kleinen Bildschirmen */
+    gap: 14px;
+    width: 100%;
+    align-items: center; /* Zentrieren der Buttons */
   }
 
   .start-button {
@@ -510,7 +510,9 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Kleinere Schatten */
-    flex-grow: 1; /* Erlaubt den Buttons, sich gleichmäßig zu verteilen */
+    flex-grow: 0;
+    width: 92%; /* Buttons fast full-width auf Handys */
+    max-width: 420px;
     text-align: center; /* Text zentrieren */
   }
 
@@ -556,6 +558,7 @@ body {
     left: 0; /* Sidebar von Anfang an sichtbar (kann später mit JS getoggelt werden) */
     width: 80vw; /* Nimmt einen größeren Teil des Handy-Bildschirms ein */
     padding: 15px;
+    gap: 20px; /* Mehr Abstand zwischen den Kategorie-Buttons auf Handys */
     border-radius: 0;
     transition: transform 0.3s ease; /* Verwenden Sie transform für bessere Performance bei Animationen */
     transform: translateX(-100%); /* Anfangs komplett nach links verschoben */
@@ -573,6 +576,14 @@ body {
     font-size: 1.1em;
     opacity: 1; /* Immer sichtbar auf Handys (kein Einblenden) */
     transform: translateX(0); /* Keine seitliche Verschiebung */
+  }
+
+  /* Mehr Abstand zwischen den Kategorie-Buttons auf Handys: */
+  .categories-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
   }
 
   /* Spezifische Farben für die Sidebar-Buttons auf kleinen Bildschirmen */
