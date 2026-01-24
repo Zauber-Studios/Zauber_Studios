@@ -1,0 +1,696 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #000; /* Schwarzer Hintergrund */
+  color: #f4f4f4;
+}
+
+/* Startbildschirm */
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden; /* Verhindert Scrollbalken durch die animierten Pfeile */
+}
+
+.start-screen .arrow {
+  display: none;
+}
+
+.start-screen h1 {
+  color: #a78bfa; /* Lila Titel */
+  margin-bottom: 40px;
+  font-size: 2.5em;
+}
+
+.arrow {
+  color: #a78bfa;
+  font-size: 3.0em;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.5s ease; /* Langsamere Transformation für das Gleiten */
+  position: absolute; /* Für die Positionierung außerhalb des Bildschirms */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-arrow {
+  left: -50px; /* Außerhalb des linken Randes */
+}
+
+.right-arrow {
+  right: -50px; /* Außerhalb des rechten Randes */
+}
+
+.start-screen.arrows-in .left-arrow {
+  left: 20px; /* Gleiten nach links */
+}
+
+.start-screen.arrows-in .right-arrow {
+  right: 20px; /* Gleiten nach rechts */
+}
+
+.arrow:hover {
+  color: #c084fc;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.start-buttons-container {
+  display: flex; /* Buttons horizontal anordnen */
+  gap: 20px; /* Abstand zwischen den Buttons */
+}
+
+.start-button {
+  color: #f4f4f4;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.start-button:hover {
+  transform: scale(1.05);
+}
+
+/* Spezifische Farben für die Startseiten-Buttons */
+.start-button[data-target="aktuelles"] {
+  background-color: #4c00ff;
+}
+.start-button[data-target="aktuelles"]:hover {
+  background-color: #00aeff;
+  color: #fff;
+}
+.start-button[data-target="partner-content"] {
+  background-color: #475569; /* neutral slate color for Partner */
+}
+
+.start-button[data-target="partner-content"]:hover {
+  background-color: #6b7280; /* lighter slate on hover */
+  color: #fff;
+}
+
+.start-button[data-target="chat-gpt-content"] {
+  background-color: #fff; /* Weiß */
+  color: #000;
+}
+
+.start-button[data-target="chat-gpt-content"]:hover {
+  background-color: black; /* Schwarz */
+  color: #fff;
+}
+
+.start-button[data-target="ueber-mich-content"] {
+  background-color: #800080; /* Lila */
+}
+
+.start-button[data-target="ueber-mich-content"]:hover {
+  background-color: #a78bfa; /* Dunkellila */
+}
+
+/* Hauptinhalt */
+.main-content {
+  display: none;
+}
+
+.top-bar {
+  background-color: #333;
+  color: #f4f4f4;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #555;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: transform 0.3s ease;
+}
+
+.menu-icon.rotate {
+  transform: rotate(90deg);
+}
+
+.menu-icon div {
+  background-color: #f4f4f4;
+  height: 3px;
+  width: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  top: 70px; /* Platz für den Top-Bar */
+  left: -35vw; /* Anfangs außerhalb des sichtbaren Bereichs */
+  width: 30vw; /* Breite des transparenten Kastens */
+  background-color: rgba(0, 0, 0, 0.5); /* Schwarzer, leicht transparenter Hintergrund */
+  padding: 20px;
+  border-radius: 10px;
+  transition: left 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Abstand zwischen den Buttons */
+  box-sizing: border-box; /* Padding und Border zur Breite hinzufügen */
+}
+
+.sidebar.active {
+  left: 10px; /* Rein gleiten ins Bild */
+}
+
+.sidebar-button {
+  border: none;
+  padding: 20px; /* Größerer Padding für größere Buttons */
+  border-radius: 8px;
+  font-size: 1.3em; /* Größere Schrift */
+  cursor: pointer;
+  text-align: center; /* Zentrierter Text */
+  opacity: 0; /* Anfangs ausgeblendet */
+  transform: translateX(-20px); /* Anfangs leicht nach links verschoben */
+  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s, background-color 0.3s ease, color 0.3s ease; /* Übergang für Hover */
+  width: 100%; /* Buttons füllen die Breite des Kastens */
+  box-sizing: border-box; /* Padding und Border zur Breite hinzufügen */
+}
+
+.sidebar.active .sidebar-button {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-button.aktuelles-button {
+  background-color: #4c00ff;
+  color: #fff;
+}
+.sidebar-button.aktuelles-button:hover {
+  background-color: #00aeff;
+  color: #fff;
+}
+/* Spezifische Farben für die Sidebar-Buttons */
+.sidebar-button.partner-button {
+  background-color: #475569; /* neutral slate color for Partner */
+  color: #fff;
+}
+
+.sidebar-button.partner-button:hover {
+  background-color: #6b7280; /* lighter slate on hover */
+}
+
+.sidebar-button.chat-gpt-button {
+  background-color: #fff; /* Weiß */
+  color: #000;
+}
+
+.sidebar-button.chat-gpt-button:hover {
+  background-color: black; /* Schwarz */
+  color: #fff;
+}
+
+/* Neue Kategorien: Archiv und Lunaria (weiß, hover grau) */
+.sidebar-button.archiv-button,
+.sidebar-button.lunaria-button {
+  background-color: #ffffff;
+  color: #000000;
+}
+.sidebar-button.archiv-button:hover,
+.sidebar-button.lunaria-button:hover {
+  background-color: #bfbfbf; /* grau beim Hover */
+  color: #000000;
+}
+
+.sidebar-button.ueber-mich-button {
+  background-color: #800080; /* Lila */
+  color: #fff;
+}
+
+.sidebar-button.ueber-mich-button:hover {
+  background-color: #a78bfa; /* Dunkellila */
+}
+
+.sidebar-button:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
+}
+
+/* Standard: Kategorie-Buttons klar/weiß mit schwarzem Text und dezenter Hover-Animation */
+.sidebar-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  transition: background-color 0.18s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.sidebar-button:hover {
+  transform: scale(1.04) !important;
+  background-color: #e6e6e6 !important; /* leicht grauer Hover */
+  color: #000000 !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Start screen buttons: weißer Hintergrund, schwarzer Text, Hover-Animation */
+.start-button {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  transition: background-color 0.18s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+.start-button:hover {
+  transform: scale(1.04);
+  background-color: #e6e6e6;
+  color: #000000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Force start-screen buttons to white/black regardless of data-target overrides */
+.start-screen .start-button {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.start-screen .start-button:hover {
+  background-color: #e6e6e6 !important;
+  transform: scale(1.04) !important;
+}
+
+/* Animierter Farbverlauf für die Kategorie-Anzeige oben links */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.current-category {
+  display: inline-block;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa, #f472b6, #fb7185);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientShift 4s linear infinite;
+}
+
+/* Positioniere die Kategorie links im Top-Bar etwas sichtbarer */
+.top-bar .current-category {
+  margin-left: 8px;
+}
+
+.current-category {
+  font-size: 1.2em;
+  color: #a78bfa;
+}
+
+.content {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+.category-content {
+  display: none;
+  background-color: #333;
+  color: #f4f4f4;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #555;
+}
+
+.category-content.aktuelles {
+  display: none;
+  background-color: #444444; /* grau für die Box */
+  color: #ffffff; /* Text in der Box weiß */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #555;
+}
+
+.category-content.aktuelles .info-box {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.category-content.aktuelles h2 {
+  color: #ffffff; /* Überschrift weiß */
+  border-bottom: 2px solid #00aeff; /* hellblauer Strich */
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.aktuelles h3 {
+  color: #4c00ff;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.category-content.aktuelles .info-box a {
+  color: #4c00ff;
+  text-decoration: underline;
+}
+
+.category-content.aktuelles .info-box a:hover {
+  color: #00aeff;
+}
+
+.category-content.aktuelles .minecraft-image {
+  width: 100%;
+  max-width: 300px; /* Reduced from 600px to make image smaller */
+  height: auto;
+  border-radius: 16px;
+  margin-top: 20px;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Added new BB-image class for Bündnis Borken logo */
+.BB-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 16px;
+  margin-top: 15px;
+  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.category-content.ueber-mich h2 {
+  color: #a78bfa;
+  border-bottom: 2px solid #8b5cf6;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.partner h2 {
+  color: #ffffff; /* Partner-Überschrift weiß */
+  border-bottom: 2px solid #00aeff; /* wie bei Aktuelles: hellblau */
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.archiv h2 {
+  color: #ffffff;
+  border-bottom: 2px solid #00aeff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.lunaria h2 {
+  color: #ffffff;
+  border-bottom: 2px solid #00aeff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.link-container {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background-color: #444;
+}
+
+.category-content.aktuelles .link-container {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.category-content.aktuelles .link-container h3 {
+  color: #4c00ff;
+}
+
+.link-container h3 {
+  color: #6ee7b7;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.link-container a {
+  color: #e0f2fe;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid #818cf8;
+  border-radius: 8px;
+  margin-right: 10px;
+  background-color: #6366f1;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  display: inline-block;
+}
+
+.link-container a:hover {
+  background-color: #a78bfa;
+  color: #f0f8ff;
+  border-color: #c084fc;
+  text-decoration: none;
+}
+
+.image-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  align-items: center;
+  flex-wrap: wrap; /* Für den Fall, dass Bilder zu breit werden auf kleinen Bildschirmen */
+}
+
+.image-placeholder {
+  background-color: #555;
+  color: #ccc;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  min-width: 100px; /* Etwas Mindestbreite für bessere Darstellung */
+  flex-grow: 1; /* Erlaubt den Platzhaltern, sich gleichmäßig zu verteilen */
+}
+
+/* Media Query für Bildschirme bis maximal 768px Breite (Handys) */
+@media (max-width: 768px) {
+  .start-screen h1 {
+    font-size: 2em;
+    margin-bottom: 30px;
+  }
+
+  .arrow {
+    font-size: 2.5em;
+    left: 10px;
+    right: 10px;
+  }
+
+  .start-buttons-container {
+    flex-direction: column; /* Buttons untereinander auf kleinen Bildschirmen */
+    gap: 14px;
+    width: 100%;
+    align-items: center; /* Zentrieren der Buttons */
+  }
+
+  .start-button {
+    /* Farben und grundlegende Formatierung beibehalten */
+    color: #f4f4f4;
+    border: none;
+    padding: 6px 8px; /* Noch schlankeres Padding für Handys */
+    border-radius: 5px;
+    font-size: 0.92em; /* Leicht kleinere Schrift für kompaktere Buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); /* Dezentere Schatten */
+    flex-grow: 0;
+    width: 65%; /* etwas schmaler als vorher */
+    max-width: 320px;
+    text-align: center; /* Text zentrieren */
+    line-height: 1.1 ; /* Etwas engerer Zeilenabstand */
+    height: 50px; /* Höhe in Pixel */
+  }
+
+  /* Spezifische Farben für die Startseiten-Buttons auf kleinen Bildschirmen */
+  .start-button[data-target="partner-content"] {
+    background-color: #ff4500; /* Rot */
+  }
+
+  .start-button[data-target="partner-content"]:hover {
+    background-color: orange; /* Gelb */
+  }
+
+  .start-button[data-target="chat-gpt-content"] {
+    background-color: #fff; /* Weiß */
+    color: #000;
+  }
+
+  .start-button[data-target="chat-gpt-content"]:hover {
+    background-color: black; /* Schwarz */
+    color: #fff;
+  }
+
+  .start-button[data-target="ueber-mich-content"] {
+    background-color: #a78bfa; /* Lila */
+  }
+
+  .start-button[data-target="ueber-mich-content"]:hover {
+    background-color: #800080; /* Dunkellila */
+  }
+
+  .top-bar {
+    padding: 10px;
+  }
+
+  .menu-icon {
+    width: 25px;
+    height: 16px;
+    margin-right: 15px;
+  }
+
+  .sidebar {
+    top: 56px; /* Platz für den kleineren Top-Bar */
+    left: 0; /* Sidebar von Anfang an sichtbar (kann später mit JS getoggelt werden) */
+    width: 80vw; /* Nimmt einen größeren Teil des Handy-Bildschirms ein */
+    padding: 15px;
+    gap: 20px; /* Mehr Abstand zwischen den Kategorie-Buttons auf Handys */
+    border-radius: 0;
+    transition: transform 0.3s ease; /* Verwenden Sie transform für bessere Performance bei Animationen */
+    transform: translateX(-100%); /* Anfangs komplett nach links verschoben */
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    z-index: 101; /* Über dem Hauptinhalt */
+  }
+
+  .sidebar.active {
+    transform: translateX(0); /* Rein gleiten */
+  }
+
+  .sidebar-button {
+    padding: 15px;
+    font-size: 1.1em;
+    opacity: 1; /* Immer sichtbar auf Handys (kein Einblenden) */
+    transform: translateX(0); /* Keine seitliche Verschiebung */
+  }
+
+  /* Mehr Abstand zwischen den Kategorie-Buttons auf Handys: */
+  .categories-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  /* Spezifische Farben für die Sidebar-Buttons auf kleinen Bildschirmen */
+  .sidebar-button.partner-button {
+    background-color: #ff4500; /* Rot */
+    color: #fff;
+  }
+
+  .sidebar-button.partner-button:hover {
+    background-color: orange; /* Gelb */
+  }
+
+  .sidebar-button.chat-gpt-button {
+    background-color: #fff; /* Weiß */
+    color: #000;
+  }
+
+  .sidebar-button.chat-gpt-button:hover {
+    background-color: black; /* Schwarz */
+    color: #fff;
+  }
+
+  .sidebar-button.ueber-mich-button {
+    background-color: #a78bfa; /* Lila */
+    color: #fff;
+  }
+
+  .sidebar-button.ueber-mich-button:hover {
+    background-color: #800080; /* Dunkellila */
+  }
+
+  .current-category {
+    font-size: 1em;
+  }
+
+  .content {
+    margin-top: 56px;
+    padding: 15px;
+    margin-left: 0; /* Kein Margin, da Sidebar über den Inhalt gleitet */
+  }
+
+  .category-content h2 {
+    font-size: 1.3em;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+  }
+
+  .link-container {
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .link-container a {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    margin-right: 5px; /* Weniger Abstand */
+    margin-bottom: 5px; /* Mehrzeilige Darstellung unterstützen */
+    display: inline-block; /* Wichtig für Margin/Padding */
+  }
+
+  .image-container {
+    gap: 10px;
+    margin-top: 10px;
+    flex-direction: column; /* Bilder/Platzhalter untereinander auf kleinen Bildschirmen */
+    align-items: stretch; /* Über die volle Breite strecken */
+  }
+}
+
+/* Desktop: Sidebar immer sichtbar, Menü-Icon verstecken, Kategorien in Box */
+@media (min-width: 769px) {
+  .menu-icon {
+    display: none;
+  }
+
+  .sidebar {
+    left: 10px; /* sichtbar am linken Rand */
+    transform: none !important;
+    width: 320px; /* breitere feste Breite für Desktop */
+    top: 80px;
+    height: calc(100vh - 100px);
+    border-radius: 10px;
+    background-color: rgba(10, 10, 10, 0.85);
+    padding: 18px;
+  }
+
+  .sidebar-button {
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 12px 16px; /* weniger vertikales Padding, verhindert hohe Buttons */
+    white-space: nowrap; /* Versuch, Umbruch zu vermeiden */
+  }
+
+  .categories-box {
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .content {
+    margin-top: 80px; /* Platz für Top-Bar */
+    margin-left: 360px; /* Platz für die breitere Sidebar + Abstand */
+    padding: 20px;
+  }
+}
