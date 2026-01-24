@@ -504,16 +504,18 @@ body {
     /* Farben und grundlegende Formatierung beibehalten */
     color: #f4f4f4;
     border: none;
-    padding: 10px 15px; /* Kleineres Padding für kleinere Bildschirme */
-    border-radius: 8px;
-    font-size: 1em; /* Kleinere Schriftgröße */
+    padding: 6px 8px; /* Noch schlankeres Padding für Handys */
+    border-radius: 5px;
+    font-size: 0.92em; /* Leicht kleinere Schrift für kompaktere Buttons */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Kleinere Schatten */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); /* Dezentere Schatten */
     flex-grow: 0;
-    width: 92%; /* Buttons fast full-width auf Handys */
-    max-width: 420px;
+    width: 65%; /* etwas schmaler als vorher */
+    max-width: 320px;
     text-align: center; /* Text zentrieren */
+    line-height: 1.1 ; /* Etwas engerer Zeilenabstand */
+    height: 50px; /* Höhe in Pixel */
   }
 
   /* Spezifische Farben für die Startseiten-Buttons auf kleinen Bildschirmen */
