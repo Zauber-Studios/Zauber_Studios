@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentIndex = 0;
 
   const thumb = document.querySelector('.planety-thumb');
-  const openBtn = document.querySelector('.planety-open');
+  const overlay = document.querySelector('.planety-overlay');
   const lightbox = document.querySelector('.lightbox');
   const lightboxImage = document.querySelector('.lightbox-image');
   const caption = document.querySelector('.lightbox-caption');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Open from thumbnail or button
   thumb.addEventListener('click', () => openLightbox(Number(thumb.dataset.index) || 0));
-  if (openBtn) openBtn.addEventListener('click', () => openLightbox(Number(thumb.dataset.index) || 0));
+  if (overlay) overlay.addEventListener('click', () => openLightbox(Number(thumb.dataset.index) || 0));
 
   // Controls
   closeBtn.addEventListener('click', closeLightbox);

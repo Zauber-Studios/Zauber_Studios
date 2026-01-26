@@ -73,6 +73,32 @@
             Archiv
           </button>
         </div>
+        <div class="archive-timeline sidebar-timeline">
+          <ul class="timeline-events">
+            <li>
+              <span class="event-title">Minecraft Kumpel</span>
+            </li>
+            <li>
+              <span class="event-title">Ludari</span>
+              <div class="event-date">2025 – Sommerferien</div>
+            </li>
+            <li>
+              <span class="event-title">Moustkumpel</span>
+              <div class="event-date">15.10.2025 – 13.11.2025</div>
+            </li>
+            <li>
+              <span class="event-title">Planety</span>
+              <div class="event-date">Weihnachten 2024/25</div>
+            </li>
+            <li>
+              <span class="event-title">Rhababs Server 2</span>
+              <div class="event-date">2024</div>
+            </li>
+            <li>
+              <span class="event-title">Sommerferien 2024</span>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <main class="content">
@@ -126,6 +152,7 @@
 
         <section id="archiv-content" class="category-content archiv">
           <h2>Archiv</h2>
+          
           <div class="link-container">
             <h3>Minecraft Kumpel</h3>
             <p>Minecraft Kumpel war ein Minecraft Modpack Projekt, das über Lord_Simpel anfangs lief und dann wegen einem Streit von Olmago weiter gefürt wurde. Das Team bestand aus <b>Der_Zauberer_HD, Fluff_Nicklas, Skymax801, Mod-Pottkartoffel und dem Hoster (Lord_Simpel/Olmago)</b>.</p>
@@ -154,17 +181,18 @@
               <div class="planety-content">
                 <div class="planety-image-wrap">
                   <img src="img/Planety/Planety1.png" alt="Planety 1" class="planety-thumb" data-index="0" />
+                  <div class="planety-overlay">Zum Anschauen tippen</div>
                 </div>
                 <div class="planety-text">
                   <h3>Planety</h3>
                   <p>Planety war ein von haubsichtlich <b>Lord_Simpel/Applepie/Lucius/zipfelklatscher_87_fuchsy</b> geführtes Minecraft Projekt. Das als nachfolger von dem <b>Rhababs Server 2</b> fungierte.</p>
                   <p>Hier kannst du <b>LEIDER nicht</b> die Minecraft-Welt herunterladen (Stand: 26.01.2026)</p>
-                  <div class="planety-controls">
-                    <button class="planety-open">Bild vergrößern</button>
-                  </div>
+                </div>
+                <div class="planety-image-overlay-placeholder">
+                  <!-- overlay is rendered inside the image wrapper -->
+                </div>
                 </div>
               </div>
-            </div>
           </div>
           <div class="link-container">
             <h3>Rhababs Server 2</h3>
@@ -213,6 +241,12 @@
           mainContent.style.display = "block";
           document.getElementById(targetId).style.display = "block";
           currentCategoryDisplay.textContent = this.textContent;
+          // show timeline in sidebar only when Archiv is active (desktop)
+          if (targetId === 'archiv-content' && window.innerWidth >= 769) {
+            sidebar.classList.add('timeline-visible');
+          } else {
+            sidebar.classList.remove('timeline-visible');
+          }
         });
       });
 
@@ -231,6 +265,12 @@
           currentCategoryDisplay.textContent = this.textContent;
           sidebar.classList.remove("active");
           menuIcon.classList.remove("rotate");
+          // show timeline in sidebar only when Archiv is active (desktop)
+          if (targetId === 'archiv-content') {
+            sidebar.classList.add('timeline-visible');
+          } else {
+            sidebar.classList.remove('timeline-visible');
+          }
         });
       });
 
@@ -240,10 +280,28 @@
           const initialCategory = window.location.hash
             ? window.location.hash.substring(1).replace("-content", "")
             : "Partner";
-          document.getElementById(initialCategory + "-content").style.display =
-            "block";
+          const targetId = initialCategory + "-content";
+          document.getElementById(targetId).style.display = "block";
+          // show timeline only if starting in archive
+          if (targetId === 'archiv-content') sidebar.classList.add('timeline-visible');
           currentCategoryDisplay.textContent = initialCategory;
         }
+
+        // Ensure timeline hidden on mobile and visible on desktop when archive selected
+        function updateTimelineVisibility() {
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove('timeline-visible');
+            sidebar.classList.add('hide-timeline-mobile');
+          } else {
+            sidebar.classList.remove('hide-timeline-mobile');
+            // keep timeline-visible only if archive currently shown
+            const archiveShown = document.getElementById('archiv-content').style.display === 'block';
+            if (archiveShown) sidebar.classList.add('timeline-visible');
+          }
+        }
+
+        updateTimelineVisibility();
+        window.addEventListener('resize', updateTimelineVisibility);
       });
     </script>
     <!-- Lightbox overlay for Planety gallery -->

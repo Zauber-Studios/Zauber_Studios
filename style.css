@@ -406,6 +406,45 @@ body {
     margin-right: 15px;
   }
 
+  /* Mobile: show three vertical dots instead of horizontal bars */
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 28px;
+    height: 44px;
+    padding: 6px 0;
+  }
+  .menu-icon div {
+    width: 6px;
+    height: 6px;
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    transition: all 0.18s ease;
+  }
+
+  /* When open (rotate class is toggled by JS) show an X */
+  .menu-icon.rotate {
+    position: relative;
+  }
+  .menu-icon.rotate div { opacity: 0; }
+  .menu-icon.rotate::before,
+  .menu-icon.rotate::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 22px;
+    height: 3px;
+    background: #f4f4f4;
+    border-radius: 2px;
+    transform-origin: center;
+  }
+  .menu-icon.rotate::before { transform: translate(-50%, -50%) rotate(45deg); }
+  .menu-icon.rotate::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
   .sidebar {
     top: 56px; 
     left: 0;
@@ -511,6 +550,126 @@ body {
     gap: 12px;
   }
 
+  /* removed simple sidebar timeline; replaced by .sidebar-timeline */
+  .sidebar-timeline {
+    margin-top: 16px;
+    padding: 18px 14px 18px 90px; /* bigger grey box top/bottom */
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    height: calc(100vh - 180px); /* allow the line to span more of the sidebar */
+    box-sizing: border-box;
+  }
+  .sidebar-timeline h4 { display: none; }
+  .sidebar-timeline .timeline-events {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* top-to-bottom DOM = visual top-to-bottom */
+    justify-content: space-between; /* distribute along the vertical line */
+    height: 100%;
+    color: #e6e6e6;
+    font-size: 1.12rem; /* larger words on desktop */
+  }
+  .sidebar-timeline li strong { color: #f4f4f4; }
+  /* hide timeline by default; only show when sidebar has class timeline-visible (set by JS) */
+  .sidebar-timeline { display: none; }
+
+  @media (min-width: 769px) {
+    .sidebar.timeline-visible .sidebar-timeline { display: block; }
+  }
+
+  @media (max-width: 768px) {
+    .sidebar-timeline { font-size: 0.92rem; }
+    .sidebar-timeline .timeline-events { gap: 6px; }
+    .sidebar-timeline li { word-break: break-word; overflow-wrap: break-word; }
+  }
+
+  /* extra safety: hide timeline if sidebar has hide-timeline-mobile (set by JS) */
+  .sidebar.hide-timeline-mobile .sidebar-timeline { display: none !important; }
+
+  /* Ensure timeline never shows on small screens */
+  @media (max-width: 768px) {
+    .sidebar-timeline { display: none !important; }
+  }
+
+  /* Extra: hide any remaining timeline blocks or event lists on small screens */
+  @media (max-width: 768px) {
+    .archive-timeline, .timeline-events, .sidebar-timeline, .sidebar .archive-timeline { display: none !important; }
+  }
+
+  /* Slightly bigger event titles/dates on desktop */
+  .sidebar-timeline .timeline-events .event-title { font-size: 1.16rem; }
+  .sidebar-timeline .timeline-events .event-date { font-size: 1rem; color: #dcdcdc; }
+
+/* Archive vertical timeline */
+.archive-timeline {
+  position: relative;
+  padding-left: 90px;
+  margin: 12px 0 18px 0;
+}
+.archive-timeline h3 {
+  margin: 0 0 10px 0;
+  color: #a78bfa;
+  font-size: 1.05rem;
+}
+.archive-timeline::before {
+  content: "";
+  position: absolute;
+  left: 46px;
+  top: 8px; /* start near top of the timeline container */
+  bottom: 8px; /* extend near bottom */
+  width: 3px;
+  background: linear-gradient(180deg, #a78bfa, #60a5fa);
+  border-radius: 2px;
+}
+.archive-timeline::after {
+  content: "";
+  position: absolute;
+  left: 40px;
+  top: 2px; /* arrow at very top of the timeline container */
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid #a78bfa;
+}
+.timeline-events {
+  list-style: none;
+  margin: 0;
+  padding: 12px 0 20px 0;
+  display: flex;
+  flex-direction: column-reverse; /* start from bottom */
+  gap: 24px;
+  }
+  /* Ensuring timeline-events kept as column with spacing */
+.timeline-events li {
+  position: relative;
+  padding-left: 8px;
+}
+.timeline-events li::before {
+  display: none; /* remove the circular point markers */
+}
+.timeline-events .event-title {
+  display: block;
+  font-weight: 700;
+  color: #f4f4f4;
+}
+.timeline-events .event-date {
+  color: #cfcfcf;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 768px) {
+  .archive-timeline { padding-left: 64px; }
+  .archive-timeline::before { left: 34px; }
+  .archive-timeline::after { left: 28px; }
+  .timeline-events li::before { left: -46px; width: 10px; height: 10px; }
+  .timeline-events { gap: 14px; }
+}
+
   .content {
     margin-top: 80px; 
     margin-left: 360px; 
@@ -529,6 +688,7 @@ body {
 }
 .planety-image-wrap {
   flex: 0 0 220px;
+  position: relative;
 }
 .planety-thumb {
   width: 100%;
@@ -537,6 +697,27 @@ body {
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(0,0,0,0.6);
   display: block;
+}
+.planety-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.55));
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.12s ease;
+}
+.planety-overlay:hover {
+  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.65));
 }
 .planety-text {
   flex: 1 1 auto;
@@ -563,6 +744,16 @@ body {
   }
   .planety-thumb {
     max-width: 100%;
+  }
+  .planety-text {
+    font-size: 0.95rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  /* Raise the Planety overlay a bit on mobile so it's not too far down */
+  .planety-overlay {
+    height: 20%;
+    bottom: 40px;
   }
 }
 
@@ -592,6 +783,13 @@ body {
   max-height: 80vh;
   border-radius: 8px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+}
+.lightbox-close, .lightbox-prev, .lightbox-next {
+  transition: background 0.12s ease, transform 0.08s ease;
+}
+.lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
 }
 .lightbox-caption {
   position: absolute;
