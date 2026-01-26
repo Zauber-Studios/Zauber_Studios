@@ -553,12 +553,12 @@ body {
   /* removed simple sidebar timeline; replaced by .sidebar-timeline */
   .sidebar-timeline {
     margin-top: 16px;
-    padding: 18px 14px 18px 90px; /* bigger grey box top/bottom */
+    padding: 22px 14px 22px 90px; /* increased top/bottom padding for a thicker box */
     background: rgba(255,255,255,0.04);
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.05);
     position: relative;
-    height: calc(100vh - 180px); /* allow the line to span more of the sidebar */
+    height: calc(100vh - 140px); /* increased height so the box appears thicker on desktop */
     box-sizing: border-box;
   }
   .sidebar-timeline h4 { display: none; }
@@ -607,8 +607,8 @@ body {
 /* Archive vertical timeline */
 .archive-timeline {
   position: relative;
-  padding-left: 90px;
-  margin: 12px 0 18px 0;
+  padding-left: 70px; /* move content slightly left so the line appears closer */
+  margin: 12px 0 0px 0;
 }
 .archive-timeline h3 {
   margin: 0 0 10px 0;
@@ -618,9 +618,9 @@ body {
 .archive-timeline::before {
   content: "";
   position: absolute;
-  left: 46px;
-  top: 8px; /* start near top of the timeline container */
-  bottom: 8px; /* extend near bottom */
+  left: 30px; /* move the vertical line further left */
+  top: 20px; /* shorten the line from the top */
+  bottom: 20px; /* shorten the line from the bottom */
   width: 3px;
   background: linear-gradient(180deg, #a78bfa, #60a5fa);
   border-radius: 2px;
@@ -628,8 +628,8 @@ body {
 .archive-timeline::after {
   content: "";
   position: absolute;
-  left: 40px;
-  top: 2px; /* arrow at very top of the timeline container */
+  left: 24px; /* align the arrow with the moved line */
+  top: 6px; /* slightly lower to match the shortened line */
   width: 0;
   height: 0;
   border-left: 8px solid transparent;
@@ -649,6 +649,29 @@ body {
   position: relative;
   padding-left: 8px;
 }
+/* small horizontal connector from the vertical line to each event text */
+.timeline-events li::after {
+  content: "";
+  position: absolute;
+  left: -40px; /* aligns with .archive-timeline::before at desktop */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 3px;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  border-radius: 2px;
+}
+
+  /* specific adjustment for entries that should originate directly from the line */
+  .timeline-events li.from-line {
+    padding-left: 0; /* remove extra spacing so text can overlap the vertical line */
+  }
+  /* remove the small connector for the special entry so the vertical line looks like it comes from the word */
+  .timeline-events li.from-line::after { display: none; }
+  .timeline-events li.from-line .event-title {
+    position: relative;
+    left: -28px; /* shift text left so the vertical line visually intersects the word (desktop) */
+  }
 .timeline-events li::before {
   display: none; /* remove the circular point markers */
 }
@@ -663,11 +686,21 @@ body {
 }
 
 @media (max-width: 768px) {
-  .archive-timeline { padding-left: 64px; }
-  .archive-timeline::before { left: 34px; }
-  .archive-timeline::after { left: 28px; }
-  .timeline-events li::before { left: -46px; width: 10px; height: 10px; }
+  .archive-timeline { padding-left: 54px; }
+  .archive-timeline::before { left: 24px; }
+  .archive-timeline::after { left: 18px; }
+  .timeline-events li::before { left: -36px; width: 10px; height: 10px; }
   .timeline-events { gap: 14px; }
+  .timeline-events li::after {
+    left: -30px; /* adjusted for mobile padding/line positions */
+    width: 18px;
+    height: 3px;
+  }
+  /* align special from-line entry on mobile by shifting the title instead of drawing a connector */
+  .timeline-events li.from-line .event-title { left: -18px; }
+
+  /* allow timeline to be visible on mobile when sidebar has timeline-visible */
+  .sidebar.timeline-visible .sidebar-timeline { display: block !important; }
 }
 
   .content {

@@ -77,6 +77,7 @@
           <ul class="timeline-events">
             <li>
               <span class="event-title">Minecraft Kumpel</span>
+              <div class="event-date">15.10.2025 – 13.11.2025</div>
             </li>
             <li>
               <span class="event-title">Ludari</span>
@@ -84,7 +85,7 @@
             </li>
             <li>
               <span class="event-title">Moustkumpel</span>
-              <div class="event-date">15.10.2025 – 13.11.2025</div>
+              <div class="event-date">Weihnachten 2024/25</div>
             </li>
             <li>
               <span class="event-title">Planety</span>
@@ -94,9 +95,10 @@
               <span class="event-title">Rhababs Server 2</span>
               <div class="event-date">2024</div>
             </li>
-            <li>
+            <li class="from-line">
               <span class="event-title">Sommerferien 2024</span>
             </li>
+
           </ul>
         </div>
       </nav>
@@ -242,7 +244,8 @@
           document.getElementById(targetId).style.display = "block";
           currentCategoryDisplay.textContent = this.textContent;
           // show timeline in sidebar only when Archiv is active (desktop)
-          if (targetId === 'archiv-content' && window.innerWidth >= 769) {
+          // show timeline when Archiv selected (also on mobile)
+          if (targetId === 'archiv-content') {
             sidebar.classList.add('timeline-visible');
           } else {
             sidebar.classList.remove('timeline-visible');
