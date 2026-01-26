@@ -802,7 +802,7 @@ body {
   /* Raise the Planety overlay a bit on mobile so it's not too far down */
   .planety-overlay {
     height: 20%;
-    bottom: 54px;
+    bottom: 40px;
   }
 }
 
