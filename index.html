@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zauber_Studios</title>
+    <title>soıpnʇS¯ɹǝqnɐZ</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       .start-screen .arrow {
@@ -22,7 +22,7 @@
   <body>
     <div class="start-screen arrows-in">
       <div class="arrow left-arrow">←</div>
-      <h1>Willkommen auf der Zauber_Studios Webseite</h1>
+      <h1>Willkommen auf der soıpnʇS¯ɹǝqnɐZ Webseite</h1>
       <div class="arrow right-arrow">→</div>
       <div class="start-buttons-container">
         <button class="start-button" data-target="lunaria-content">Lunaria</button>
@@ -123,15 +123,53 @@
             </p>
           </div>
         </section>
+
         <section id="archiv-content" class="category-content archiv">
           <h2>Archiv</h2>
           <div class="link-container">
             <h3>Minecraft Kumpel</h3>
-            <p>Hier kannst du die beiden Minecraft-Welten herunterladen:</p>
+            <p>Minecraft Kumpel war ein Minecraft Modpack Projekt, das über Lord_Simpel anfangs lief und dann wegen einem Streit von Olmago weiter gefürt wurde. Das Team bestand aus <b>Der_Zauberer_HD, Fluff_Nicklas, Skymax801, Mod-Pottkartoffel und dem Hoster (Lord_Simpel/Olmago)</b>.</p>
+            <p>Hier kannst du das Modpack und die beiden Minecraft-Welten herunterladen (Stand: 26.01.2026):</p>
             <p>
-              <a href="Welten/Kumpel Welt 1.zip" download="Kumpel Welt 1.zip">Welt V1 herunterladen</a>
-              <a href="Welten/Kumpel Welt 2.zip" download="Kumpel Welt 2.zip">Welt V2 herunterladen</a>
+              <a href="https://modrinth.com/modpack/minecraft-kumpel" download="Kumpel Modpack">Kumpel Modpack</a>
+              <a href="https://drive.google.com/file/d/18jlBCniv_9eyWe9l5yx9lVkHRVZ-a7n0/view?usp=drive_link" download="Kumpel Welt 1.zip">Welt V1 herunterladen</a>
+              <a href="https://virtum.tech/" download="Kumpel Welt 2.zip">Welt V2 herunterladen</a>
             </p>
+          </div>
+          <div class="link-container">
+            <h3>Ludari</h3>
+            <p>Ludari war ein von haubsichtlich <b>Red_Seb</b> geführtes Minecraft Projekt. Das als nachfolger von <b>Mostkumple</b> fungierte. </p>
+            <p>Hier kannst du die Minecraft-Welt herunterladen (Stand: 25.11.2025):</p>
+            <p>
+              <a href="ludari.at" download="Ludari">Ludari Welt herunterladen</a>
+            </p>
+          </div>
+          <div class="link-container">
+            <h3>Moustkumpel</h3>
+            <p>Moustkumpel war ein von haubsichtlich <b>Red_Seb & Pottkartoffel</b> geführtes Minecraft Projekt. Das als nachfolger von dem <b>Rhababs Server 2</b> fungierte.</p>
+            <p>Hier kannst du <b>LEIDER nicht</b> die Minecraft-Welt herunterladen (Stand: 26.01.2026)</p>
+          </div>
+          <div class="link-container">
+            <div class="planety-box">
+              <div class="planety-content">
+                <div class="planety-image-wrap">
+                  <img src="img/Planety/Planety1.png" alt="Planety 1" class="planety-thumb" data-index="0" />
+                </div>
+                <div class="planety-text">
+                  <h3>Planety</h3>
+                  <p>Planety war ein von haubsichtlich <b>Lord_Simpel/Applepie/Lucius/zipfelklatscher_87_fuchsy</b> geführtes Minecraft Projekt. Das als nachfolger von dem <b>Rhababs Server 2</b> fungierte.</p>
+                  <p>Hier kannst du <b>LEIDER nicht</b> die Minecraft-Welt herunterladen (Stand: 26.01.2026)</p>
+                  <div class="planety-controls">
+                    <button class="planety-open">Bild vergrößern</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="link-container">
+            <h3>Rhababs Server 2</h3>
+            <p>Text-box</p>
+            <p>Hier kannst du <b>evt. bald</b> die Minecraft-Welt herunterladen (Stand: 26.01.2026)</p>
           </div>
         </section>
 
@@ -196,16 +234,6 @@
         });
       });
 
-      leftArrow.addEventListener("click", () => {
-        window.location.href =
-          "https://youtu.be/xvFZjo5PgG0?si=PaF0UhDC4D4KCfZ5";
-      });
-
-      rightArrow.addEventListener("click", () => {
-        window.location.href =
-          "https://youtu.be/xvFZjo5PgG0?si=PaF0UhDC4D4KCfZ5";
-      });
-
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".start-screen").classList.add("arrows-in");
         if (mainContent.style.display === "block") {
@@ -218,5 +246,16 @@
         }
       });
     </script>
+    <!-- Lightbox overlay for Planety gallery -->
+    <div class="lightbox" aria-hidden="true">
+      <div class="lightbox-inner">
+        <button class="lightbox-close" aria-label="Schließen">✕</button>
+        <img src="" alt="" class="lightbox-image" />
+        <div class="lightbox-caption">1/5</div>
+        <button class="lightbox-prev" aria-label="Vorheriges">◀</button>
+        <button class="lightbox-next" aria-label="Nächstes">▶</button>
+      </div>
+    </div>
+    <script src="gallery.js"></script>
   </body>
 </html>
