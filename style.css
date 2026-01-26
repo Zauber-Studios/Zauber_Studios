@@ -451,12 +451,13 @@ body {
     width: 80vw; 
     padding: 15px;
     gap: 20px;
-    border-radius: 0;
+    border-radius: 1;
     transition: transform 0.3s ease; 
     transform: translateX(-100%);
     height: calc(100vh - 56px);
     overflow-y: auto;
     z-index: 101; 
+    background-color: rgba(10, 10, 10, 0.85);
   }
 
   .sidebar.active {
@@ -474,8 +475,23 @@ body {
   .categories-box {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 100%;
+    gap: 14px;
+    width: 100%; /* schmaler auf Handys */
+    max-width: 360px;
+    margin: 12px auto; /* zentrieren */
+    padding: 16px; /* etwas mehr Innenraum */
+    box-sizing: border-box;
+    border-radius: 20px; /* stärker abgerundete Ecken */
+    animation: slideIn 420ms cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  /* Bilder auf Handys leicht anheben, Schatten nach oben verschieben */
+  .minecraft-image,
+  .BB-image {
+    margin-top: 8px !important;
+    transform: translateY(-8px);
+    box-shadow: 0 -6px 18px rgba(0,0,0,0.28); /* Schatten etwas weiter oben */
+    max-width: 320px;
   }
 
 
@@ -685,6 +701,34 @@ body {
   font-size: 0.92rem;
 }
 
+/* Archive-only overrides when timeline is shown (triggered by JS adding .timeline-visible to .sidebar) */
+.sidebar.timeline-visible .archive-timeline::before {
+  background: linear-gradient(180deg, #7dd3fc, #60a5fa);
+}
+.sidebar.timeline-visible .archive-timeline::after {
+  border-bottom-color: #60a5fa;
+}
+.sidebar.timeline-visible .sidebar-timeline .timeline-events li::before,
+.sidebar.timeline-visible .sidebar-timeline .timeline-events li::after {
+  background: linear-gradient(90deg, #7dd3fc, #60a5fa);
+}
+/* Make each timeline item a horizontal card with centered date on the right */
+.sidebar.timeline-visible .sidebar-timeline .timeline-events li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 48px; /* space for the vertical line/marker */
+}
+.sidebar.timeline-visible .sidebar-timeline .timeline-events .event-title {
+  margin: 0;
+}
+.sidebar.timeline-visible .sidebar-timeline .timeline-events .event-date {
+  margin-left: auto;
+  text-align: center;
+  align-self: center;
+  color: #cfefff;
+}
+
 @media (max-width: 768px) {
   .archive-timeline { padding-left: 54px; }
   .archive-timeline::before { left: 24px; }
@@ -710,84 +754,88 @@ body {
   }
 }
 
-/* Planety gallery layout */
-.planety-box {
-  width: 100%;
-}
-.planety-content {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-}
-.planety-image-wrap {
-  flex: 0 0 220px;
-  position: relative;
-}
-.planety-thumb {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
-  display: block;
-}
-.planety-overlay {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
-  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.55));
-  border-radius: 0 0 8px 8px;
-  font-weight: 600;
-  padding: 8px 10px;
-  cursor: pointer;
-  transition: background 0.18s ease, transform 0.12s ease;
-}
-.planety-overlay:hover {
-  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.65));
-}
-.planety-text {
-  flex: 1 1 auto;
-}
-.planety-controls {
-  margin-top: 12px;
-}
-.planety-open {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #6366f1;
-  color: #fff;
-  cursor: pointer;
-}
-
+/* Mobile: improved, card-style timeline for better readability */
 @media (max-width: 768px) {
-  .planety-content {
-    flex-direction: column-reverse; /* Bild unter dem Text */
-    gap: 10px;
+  .sidebar.timeline-visible .sidebar-timeline {
+    display: block !important;
+    background: rgba(6, 6, 6, 0.86);
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.04);
+    position: relative;
   }
-  .planety-image-wrap {
-    width: 100%;
+
+  .sidebar.timeline-visible .sidebar-timeline::after {
+    content: "";
+    position: absolute;
+    left: 26px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(180deg, #a78bfa, #60a5fa);
+    border-radius: 2px;
+    opacity: 0.95;
   }
-  .planety-thumb {
-    max-width: 100%;
+
+  .sidebar.timeline-visible .sidebar-timeline .timeline-events {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 8px 0 0 0;
   }
-  .planety-text {
-    font-size: 0.95rem;
-    overflow-wrap: break-word;
-    word-break: break-word;
+
+  .sidebar.timeline-visible .sidebar-timeline .timeline-events li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.02);
+    padding: 10px 12px 10px 48px; /* leave space for marker */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    position: relative;
   }
-  /* Raise the Planety overlay a bit on mobile so it's not too far down */
-  .planety-overlay {
-    height: 20%;
-    bottom: 40px;
+
+  .sidebar.timeline-visible .sidebar-timeline .timeline-events li::before {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(167,139,250,0.12);
   }
+
+  .sidebar.timeline-visible .sidebar-timeline .timeline-events .event-title {
+    font-size: 1rem;
+    color: #f4f4f4;
+    margin: 0;
+  }
+
+  .sidebar.timeline-visible .sidebar-timeline .timeline-events .event-date {
+    font-size: 0.85rem;
+    color: #d0d0d0;
+    margin-left: auto;
+  }
+
+  /* Keep the rest of page Planety styles below for mobile */
+  .planety-box { width: 100%; }
+  .planety-content { display: flex; gap: 18px; align-items: flex-start; }
+  .planety-image-wrap { flex: 0 0 220px; position: relative; }
+  .planety-thumb { width: 100%; height: auto; border-radius: 8px; cursor: pointer; box-shadow: 0 6px 14px rgba(0,0,0,0.6); display: block; }
+  .planety-overlay { position: absolute; left: 0; right: 0; bottom: 0; height: 25%; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.55)); border-radius: 0 0 8px 8px; font-weight: 600; padding: 8px 10px; cursor: pointer; transition: background 0.18s ease, transform 0.12s ease; }
+  .planety-overlay:hover { background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.65)); }
+  .planety-text { flex: 1 1 auto; }
+  .planety-controls { margin-top: 12px; }
+  .planety-open { padding: 8px 12px; border-radius: 6px; border: none; background-color: #6366f1; color: #fff; cursor: pointer; }
+  .planety-content { flex-direction: column-reverse; gap: 10px; }
+  .planety-image-wrap { width: 100%; }
+  .planety-thumb { max-width: 100%; }
+  .planety-text { font-size: 0.95rem; overflow-wrap: break-word; word-break: break-word; }
+  .planety-overlay { height: 20%; bottom: 54px; }
 }
 
 /* Lightbox overlay */
