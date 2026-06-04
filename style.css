@@ -1,4 +1,10 @@
+html, body {
+  height: 100%;
+}
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: sans-serif;
   margin: 0;
   padding: 0;
@@ -64,6 +70,7 @@ body {
 /* Hauptinhalt */
 .main-content {
   display: none;
+  flex: 1 0 auto;
 }
 
 .top-bar {
@@ -212,6 +219,21 @@ ul {
   color: #a78bfa;
 }
 
+/* Timeline button: show on desktop, hide on mobile */
+.timeline-btn {
+  display: none; /* default hidden on small screens */
+  margin-left: 12px;
+  padding: 6px 10px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  font-size: 0.95em;
+}
+
+/* (theme switch removed) */
+
+
 .content {
   margin-top: 80px;
   padding: 20px;
@@ -291,6 +313,38 @@ ul {
   border-bottom: 2px solid #00aeff;
   padding-bottom: 5px;
   margin-bottom: 15px;
+}
+
+.category-content.timeline h2 {
+  color: #ffffff;
+  border-bottom: 2px solid #00aeff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.category-content.timeline .archive-timeline {
+  margin-top: 10px;
+}
+
+.category-content.timeline .timeline-events li {
+  margin-bottom: 12px;
+  padding: 10px;
+  background-color: #3a3a3a;
+  border-radius: 6px;
+  border-left: 3px solid #a78bfa;
+}
+
+.category-content.timeline .event-title {
+  color: #60a5fa;
+  font-weight: 600;
+  display: block;
+}
+
+.category-content.timeline .event-date {
+  color: #dcdcdc;
+  font-size: 0.9em;
+  display: block;
+  margin-top: 4px;
 }
 
 .link-container {
@@ -492,6 +546,20 @@ ul {
     font-size: 1em;
   }
 
+  /* Show timeline button on mobile */
+  /* Hide timeline button on mobile (requested) */
+  .timeline-btn {
+    display: none !important;
+  }
+
+  .timeline-btn:hover {
+    background-color: #e6e6e6;
+    transform: scale(1.04);
+  }
+
+  /* Hide sidebar timeline on mobile */
+  .sidebar-timeline { display: none !important; }
+
   .content {
     margin-top: 56px;
     padding: 15px;
@@ -531,16 +599,58 @@ ul {
     display: none;
   }
 
+  /* hide timeline button on desktop */
+  .timeline-btn { display: none !important; }
+
+  /* Show sidebar timeline on desktop */
+  .sidebar-timeline { display: block !important; }
+
+  /* Hide mobile timeline category on desktop */
+  #timeline-content { display: none !important; }
+
+  
+  /* left panel: underlying full-height gray area (only when active) */
+  body.left-panel-active::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 360px;
+    background: #4a4a4a;
+    z-index: 80;
+  }
+  /* full-height blue separator line (only when active) */
+  body.left-panel-active::after {
+    content: "";
+    position: fixed;
+    left: 360px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #87ceeb;
+    z-index: 90;
+  }
+
   .sidebar {
-    left: 10px;
+    left: 0;
     transform: none !important;
-    width: 320px;
+    width: 360px;
     top: 80px;
     height: calc(100vh - 100px);
     border-radius: 10px;
-    background-color: rgba(10, 10, 10, 0.85);
+    background: transparent; /* show the left-panel bg behind */
     padding: 18px;
+    box-sizing: border-box;
+    z-index: 100;
   }
+
+  /* top-bar stays full-width until left panel is activated */
+  body.left-panel-active .top-bar {
+    left: 363px;
+    width: calc(100% - 363px);
+  }
+  
 
   .sidebar-button {
     opacity: 1 !important;
@@ -549,8 +659,10 @@ ul {
     white-space: nowrap;
   }
 
+  /* left-panel-active keeps only the panel visible; button styles remain default */
+
   .categories-box {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: #363636;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.04);
@@ -563,13 +675,11 @@ ul {
   .sidebar-timeline {
     margin-top: 16px;
     padding: 22px 14px 22px 90px; /* increased top/bottom padding for a thicker box */
-    background: rgba(255, 255, 255, 0.04);
+    background: #363636;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
-    height: calc(
-      100vh - 140px
-    ); /* increased height so the box appears thicker on desktop */
+    height: calc(100vh - 140px); /* increased height so the box appears thicker on desktop */
     box-sizing: border-box;
   }
   .sidebar-timeline h4 {
@@ -600,40 +710,31 @@ ul {
     }
   }
 
-  @media (max-width: 768px) {
-    .sidebar-timeline {
-      font-size: 0.92rem;
-    }
-    .sidebar-timeline .timeline-events {
-      gap: 6px;
-    }
-    .sidebar-timeline li {
-      word-break: break-word;
-      overflow-wrap: break-word;
-    }
-  }
-
   /* extra safety: hide timeline if sidebar has hide-timeline-mobile (set by JS) */
   .sidebar.hide-timeline-mobile .sidebar-timeline {
     display: none !important;
   }
 
-  /* Ensure timeline never shows on small screens */
+  /* Mobile: keep the sidebar timeline hidden, but allow the timeline inside the
+     dedicated mobile category page (#timeline-content) to be visible */
   @media (max-width: 768px) {
-    .sidebar-timeline {
-      display: none !important;
+    .sidebar-timeline { display: none !important; }
+    .sidebar .archive-timeline { display: none !important; }
+    /* allow timeline content inside the mobile category page */
+    #timeline-content .archive-timeline,
+    #timeline-content .timeline-events,
+    #timeline-content .sidebar-timeline {
+      display: block !important;
     }
+    .sidebar-timeline { font-size: 0.92rem; }
+    .sidebar-timeline .timeline-events { gap: 6px; }
+    .sidebar-timeline li { word-break: break-word; overflow-wrap: break-word; }
+    /* Ensure the timeline content section itself is visible when JS shows it */
+    #timeline-content { display: block !important; }
   }
 
-  /* Extra: hide any remaining timeline blocks or event lists on small screens */
-  @media (max-width: 768px) {
-    .archive-timeline,
-    .timeline-events,
-    .sidebar-timeline,
-    .sidebar .archive-timeline {
-      display: none !important;
-    }
-  }
+  /* Desktop: make timeline entries a bit darker for contrast */
+  /* keep default timeline visuals in sidebar */
 
   /* Slightly bigger event titles/dates on desktop */
   .sidebar-timeline .timeline-events .event-title {
@@ -763,8 +864,23 @@ ul {
 
   .content {
     margin-top: 80px;
-    margin-left: 360px;
+    margin-left: 0;
     padding: 20px;
+  }
+
+  /* shift content/footer only when left panel active */
+  body.left-panel-active .content {
+    margin-left: 363px;
+  }
+
+  /* Footer positioning: full-width by default, shift when left panel active */
+  .site-footer {
+    margin-left: 0;
+    width: 100%;
+  }
+  body.left-panel-active .site-footer {
+    margin-left: 363px;
+    width: calc(100% - 363px);
   }
 }
 
@@ -931,4 +1047,83 @@ ul {
 }
 .lightbox-next {
   right: 12px;
+}
+
+/* Site footer (static, placed after content) */
+.site-footer {
+  position: relative;
+  background: #0b0b0d;
+  color: #dcdcdc;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 14px 12px;
+  margin-top: 18px;
+  width: 100%;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+.footer-left {
+  font-weight: 600;
+  color: #e6e6e6;
+}
+.footer-right .footer-link {
+  color: #dcdcdc;
+  margin-left: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-words {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+}
+.footer-words .fw {
+  font-size: 1.05rem;
+  line-height: 1;
+  display: inline-block;
+}
+.footer-words a.footer-link { text-decoration: none; color: inherit; }
+
+/* Keep grouped words unbroken and stack on small screens */
+.footer-words .fw { white-space: nowrap; }
+@media (max-width: 600px) {
+  .footer-words { flex-direction: column; gap: 8px; }
+  .footer-words .fw { font-size: 1.05rem; }
+}
+.footer-mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.footer-center,
+.footer-mid .footer-right {
+  font-size: 1.15rem;
+}
+.site-footer {
+  position: relative;
+  background: #0b0b0d;
+  color: #dcdcdc;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 14px 12px;
+  margin-top: 18px;
+  width: 100%;
+}
+.footer-inner { position: relative; }
+.footer-left { display: none; }
+.footer-mid { display: none; }
+.footer-right svg { width: 20px; height: 20px; display: block; }
+.email-link { padding: 0; background: transparent; border: none; color: inherit; text-decoration: none; }
+
+@media (max-width: 600px) {
+  .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
 }
