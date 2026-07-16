@@ -1,5 +1,11 @@
 html, body {
   height: 100%;
+  /* Prevent horizontal scrolling on mobile */
+  overflow-x: hidden;
+  /* Allow vertical panning but block horizontal touch gestures */
+  touch-action: pan-y;
+  /* Prevent overscroll from causing horizontal bounce */
+  overscroll-behavior-x: none;
 }
 body {
   display: flex;
@@ -636,8 +642,8 @@ ul {
     left: 0;
     transform: none !important;
     width: 360px;
-    top: 80px;
-    height: calc(100vh - 100px);
+    top: 20px;
+    height: calc(100vh - 80px);
     border-radius: 10px;
     background: transparent; /* show the left-panel bg behind */
     padding: 18px;
@@ -673,7 +679,7 @@ ul {
 
   /* removed simple sidebar timeline; replaced by .sidebar-timeline */
   .sidebar-timeline {
-    margin-top: 16px;
+    margin-top: 8px;
     padding: 22px 14px 22px 90px; /* increased top/bottom padding for a thicker box */
     background: #363636;
     border-radius: 10px;
@@ -749,7 +755,7 @@ ul {
   .archive-timeline {
     position: relative;
     padding-left: 70px; /* move content slightly left so the line appears closer */
-    margin: 12px 0 0px 0;
+    margin: 6px 0 0 0;
   }
   .archive-timeline h3 {
     margin: 0 0 10px 0;
